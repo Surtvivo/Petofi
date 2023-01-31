@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfw2lrensnqmr"]
+
+[ext_resource type="Texture2D" uid="uid://cukdkw6h235yu" path="res://Assets/ui/speech_bubble.png" id="1_ipgkk"]
+[ext_resource type="Script" path="res://Scripts/ui/speech_bubble.gd" id="1_qmgc1"]
+[ext_resource type="FontFile" uid="uid://bmsxluouqrh3" path="res://Assets/AlexBrush-Regular.ttf" id="2_5njhv"]
+[ext_resource type="Shader" path="res://Shaders/speech_bubble.gdshader" id="2_g8wl1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lrbcv"]
+shader = ExtResource("2_g8wl1")
+shader_parameter/fade_in = true
+shader_parameter/frames = 0
+shader_parameter/max_frames = 45
+
+[sub_resource type="LabelSettings" id="LabelSettings_myj5b"]
+font = ExtResource("2_5njhv")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+
+[node name="Speech Bubble" type="Control"]
+z_index = 150
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_qmgc1")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+material = SubResource("ShaderMaterial_lrbcv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ipgkk")
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.299
+anchor_top = 0.21
+anchor_right = 0.716
+anchor_bottom = 0.65
+offset_left = 0.551971
+offset_top = -0.0800018
+offset_right = 0.167969
+offset_bottom = -0.200012
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_myj5b")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

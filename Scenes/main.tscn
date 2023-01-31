@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://cusif184daheu"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_r8dvt"]
+[ext_resource type="PackedScene" uid="uid://bodoj38jjlg75" path="res://Scenes/level1/level1.tscn" id="1_s6yeo"]
+[ext_resource type="PackedScene" uid="uid://bv3ntsc06atmy" path="res://Scenes/player.tscn" id="2_e3t3t"]
+[ext_resource type="PackedScene" uid="uid://cc4pyl5sfprkx" path="res://Scenes/hud.tscn" id="4_e1vwt"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_r8dvt")
+metadata/_edit_vertical_guides_ = []
+metadata/_edit_horizontal_guides_ = [-1109.0, 938.0]
+
+[node name="Level" parent="." instance=ExtResource("1_s6yeo")]
+position = Vector2(30, 8)
+scale = Vector2(1.5, 1.5)
+
+[node name="Player" parent="." instance=ExtResource("2_e3t3t")]
+position = Vector2(-9100, 541)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+z_index = 100
+current = true
+zoom = Vector2(0.5, 0.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_e1vwt")]

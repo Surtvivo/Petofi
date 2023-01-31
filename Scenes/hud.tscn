@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc4pyl5sfprkx"]
+
+[ext_resource type="Script" path="res://Scripts/ui/hud.gd" id="1_k806v"]
+
+[node name="HUD" type="MarginContainer"]
+z_index = 150
+z_as_relative = false
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_left = -35.712
+offset_top = -28.512
+offset_right = 39.168
+offset_bottom = 39.528
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k806v")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Plate" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2

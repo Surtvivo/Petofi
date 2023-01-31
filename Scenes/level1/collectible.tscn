@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://bryrhq57kicy0"]
+
+[ext_resource type="Script" path="res://Scripts/collectible.gd" id="1_a8doo"]
+[ext_resource type="Texture2D" uid="uid://u80gkp08kqy1" path="res://Assets/level1/collectible/down.png" id="2_71gax"]
+[ext_resource type="Shader" path="res://Shaders/collectible.gdshader" id="2_h83h8"]
+[ext_resource type="Texture2D" uid="uid://02umden8yvs8" path="res://Assets/level1/collectible/middle.png" id="3_7beao"]
+[ext_resource type="Texture2D" uid="uid://c3to8fcr30uqj" path="res://Assets/level1/collectible/up.png" id="4_xoqis"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2f7wn"]
+shader = ExtResource("2_h83h8")
+shader_parameter/radius = null
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eowhi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_71gax")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7beao")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xoqis")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_7beao")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d5gyl"]
+radius = 40.0
+
+[node name="Collectible" type="Node2D"]
+z_index = 100
+scale = Vector2(2, 2)
+script = ExtResource("1_a8doo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_2f7wn")
+position = Vector2(0, 10)
+frames = SubResource("SpriteFrames_eowhi")
+playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2.38419e-06, -2.38419e-06)
+shape = SubResource("CircleShape2D_d5gyl")

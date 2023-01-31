@@ -1,0 +1,293 @@
+[gd_scene load_steps=16 format=3 uid="uid://bv3ntsc06atmy"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_xvqj2"]
+[ext_resource type="Texture2D" uid="uid://coyis1fviy8l0" path="res://Assets/Petofi/head.png" id="2_ugugb"]
+[ext_resource type="Texture2D" uid="uid://c5uj6b4uvakcw" path="res://Assets/Petofi/body.png" id="3_38xay"]
+[ext_resource type="Texture2D" uid="uid://ry4xkl5hp2v1" path="res://Assets/Petofi/upper_arm.png" id="4_blrde"]
+[ext_resource type="Texture2D" uid="uid://c0u1ohfb5t4k5" path="res://Assets/Petofi/lower_arm.png" id="5_pyfb0"]
+[ext_resource type="Texture2D" uid="uid://co0y2lrnqeit1" path="res://Assets/Petofi/feet.png" id="6_5npr1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ev0f"]
+radius = 9.00001
+height = 42.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_roiaq"]
+height = 47.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w6vpj"]
+radius = 26.0
+height = 112.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46y3r"]
+radius = 75.5381
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sgrww"]
+radius = 9.0
+height = 41.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rbytq"]
+height = 49.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4oggf"]
+radius = 61.0737
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gia4s"]
+radius = 9.0
+height = 54.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ql0sa"]
+radius = 9.0
+height = 54.0
+
+[node name="Player" type="Node2D"]
+z_index = 95
+z_as_relative = false
+position = Vector2(0, -1)
+script = ExtResource("1_xvqj2")
+
+[node name="LeftUpperArm" type="RigidBody2D" parent="."]
+position = Vector2(51, -24)
+rotation = -1.57079
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftUpperArm"]
+texture = ExtResource("4_blrde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftUpperArm"]
+position = Vector2(-0.999975, 4.00001)
+shape = SubResource("CapsuleShape2D_1ev0f")
+
+[node name="LowerArmJoint" type="PinJoint2D" parent="LeftUpperArm"]
+position = Vector2(-1.00006, 29)
+node_a = NodePath("..")
+node_b = NodePath("../../LeftLowerArm")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="LeftLowerArm" type="RigidBody2D" parent="."]
+position = Vector2(109, -24)
+rotation = -4.71238
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftLowerArm"]
+rotation = -3.14159
+texture = ExtResource("5_pyfb0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftLowerArm"]
+position = Vector2(1, 0.499985)
+shape = SubResource("CapsuleShape2D_roiaq")
+
+[node name="Torso" type="RigidBody2D" parent="."]
+position = Vector2(-1, -45)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Torso"]
+position = Vector2(2, 47)
+texture = ExtResource("3_38xay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso"]
+position = Vector2(3, 50)
+shape = SubResource("CapsuleShape2D_w6vpj")
+
+[node name="HeadJoint" type="PinJoint2D" parent="Torso"]
+position = Vector2(1, 3)
+node_a = NodePath("..")
+node_b = NodePath("../../Head")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="RightArmJoint" type="PinJoint2D" parent="Torso"]
+position = Vector2(-18, 19)
+node_a = NodePath("..")
+node_b = NodePath("../../RightUpperArm")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="LeftArmJoint" type="PinJoint2D" parent="Torso"]
+position = Vector2(24, 20)
+node_a = NodePath("..")
+node_b = NodePath("../../LeftUpperArm")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="LeftLegJoint" type="PinJoint2D" parent="Torso"]
+position = Vector2(20, 108)
+node_a = NodePath("..")
+node_b = NodePath("../../LeftUpperLeg")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="RightLegJoint" type="PinJoint2D" parent="Torso"]
+position = Vector2(-15, 107)
+node_a = NodePath("..")
+node_b = NodePath("../../RightUpperLeg")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="ResetTrigger" type="Area2D" parent="Torso"]
+position = Vector2(1, 45)
+collision_layer = 4
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torso/ResetTrigger"]
+shape = SubResource("CircleShape2D_46y3r")
+
+[node name="RightUpperArm" type="RigidBody2D" parent="."]
+position = Vector2(-48, -26)
+rotation = 1.57079
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="RightUpperArm"]
+texture = ExtResource("4_blrde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightUpperArm"]
+position = Vector2(0, 0.500008)
+shape = SubResource("CapsuleShape2D_sgrww")
+
+[node name="LowerArmJoint" type="PinJoint2D" parent="RightUpperArm"]
+position = Vector2(1.00006, 25)
+node_a = NodePath("..")
+node_b = NodePath("../../RightLowerArm")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="RightLowerArm" type="RigidBody2D" parent="."]
+position = Vector2(-102, -26)
+rotation = -4.71238
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="RightLowerArm"]
+texture = ExtResource("5_pyfb0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightLowerArm"]
+position = Vector2(1.90735e-06, 0.500008)
+shape = SubResource("CapsuleShape2D_rbytq")
+
+[node name="Head" type="RigidBody2D" parent="."]
+position = Vector2(3, -111)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+angular_damp = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="Head"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ugugb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_4oggf")
+
+[node name="LeftUpperLeg" type="RigidBody2D" parent="."]
+position = Vector2(19, 93)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftUpperLeg"]
+texture = ExtResource("4_blrde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftUpperLeg"]
+shape = SubResource("CapsuleShape2D_gia4s")
+
+[node name="LowerLegJoint" type="PinJoint2D" parent="LeftUpperLeg"]
+position = Vector2(-1.00006, 29)
+node_a = NodePath("..")
+node_b = NodePath("../../LeftLowerLeg")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="LeftLowerLeg" type="RigidBody2D" parent="."]
+position = Vector2(19, 148)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftLowerLeg"]
+position = Vector2(0, 36)
+texture = ExtResource("6_5npr1")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="LeftLowerLeg"]
+position = Vector2(-7.62939e-06, 6.5)
+polygon = PackedVector2Array(-14, 37.5, 19, 37.5, 8.00001, -27.5, -6.99999, -27.5)
+
+[node name="RightUpperLeg" type="RigidBody2D" parent="."]
+position = Vector2(-16, 92)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="RightUpperLeg"]
+texture = ExtResource("4_blrde")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightUpperLeg"]
+shape = SubResource("CapsuleShape2D_ql0sa")
+
+[node name="LowerLegJoint" type="PinJoint2D" parent="RightUpperLeg"]
+position = Vector2(-1.00006, 29)
+node_a = NodePath("..")
+node_b = NodePath("../../RightLowerLeg")
+bias = 0.5
+disable_collision = false
+softness = 0.1
+
+[node name="RightLowerLeg" type="RigidBody2D" parent="."]
+position = Vector2(-16, 147)
+collision_layer = 2
+collision_mask = 7
+input_pickable = true
+continuous_cd = 2
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="RightLowerLeg"]
+position = Vector2(0, 36)
+texture = ExtResource("6_5npr1")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="RightLowerLeg"]
+position = Vector2(-7.62939e-06, 6.5)
+polygon = PackedVector2Array(-8.99999, -28.5, -16, 37.5, 18, 37.5, 9.00001, -28.5)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+z_index = 150
+z_as_relative = false
+target_position = Vector2(0, 250)
+collide_with_areas = true
+
+[connection signal="area_entered" from="Torso/ResetTrigger" to="." method="_on_reset_trigger_area_entered"]
